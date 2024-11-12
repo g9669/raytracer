@@ -1,3 +1,5 @@
+#include <iostream>
+#include <chrono>
 #include "rtweekend.h"
 
 #include "camera.h"
@@ -5,7 +7,6 @@
 #include "hittable_list.h"
 #include "material.h"
 #include "sphere.h"
-
 
 int main() {
     hittable_list world;
@@ -65,5 +66,12 @@ int main() {
     cam.defocus_angle = 0.6;
     cam.focus_dist    = 10.0;
 
+    auto start = std::chrono::high_resolution_clock::now();
+
     cam.render(world);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> render_time = end - start;
+
+    std::cout << "Render time: " << render_time.count() << " seconds\n";
 }
